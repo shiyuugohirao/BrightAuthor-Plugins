@@ -1,9 +1,52 @@
-Overivew
----------
-<p>Use this plugin to send a UDP string that is hexidecimal formatted and contains a carriage return. When adding this plugin to your presentation in <strong>File > Presentation Properties > Autorun</strong>, make sure to to specify the <strong>Name</strong> as "udphex". </p>
+# UDP Hex CR Command Sender
 
-<p>To send hexidecimal formatted UDP commands with this plugin, use the Plugin Message command to send the following message to the plugin:</p>
+> [日本語版はこちら](README_ja.md)
 
-<code>Udp![hex_command]</code>
+## Overview
 
-<p>Note that the [hex_command] should not include any text used to mark it as hexidecimal formatted (such as a leading "x", "h", or "0"). The carriage return will be added to the end of the message when it is sent over UDP</p>.
+Sends UDP commands encoded as hexadecimal strings. The hex data is converted to bytes and sent to the UDP destination configured in BrightAuthor.
+
+## Plugin Name
+
+```
+udphex
+```
+
+## Installation
+
+1. Download `udphex.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `udphex.brs`.
+4. Set the plugin **Name** to `udphex`.
+5. Configure the UDP destination in **File > Presentation Properties > I/O**.
+
+## Usage
+
+Send a Plugin Message or UDP command in the following format:
+
+```
+Udp!<hex_command>
+```
+
+The hex string is converted to a byte array via `FromHexString` and sent over UDP.
+
+### Examples
+
+```
+Udp!FF0102030D
+```
+
+## Notes
+
+- Unlike [UDP-CR-Command-Sender](../UDP-CR-Command-Sender/), this plugin does not append a CR automatically; include termination bytes in the hex string if needed.
+- UDP destination is read from BrightAuthor I/O settings.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `udphex.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

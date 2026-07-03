@@ -1,13 +1,50 @@
-<p>This plugin allows you to change the separator symbol for all scrolling tickers in a presentation. By default, each string in a scrolling ticker is separated by a diamond symbol; use this plugin to change the separator to a circle or square.</p>
+# Change Ticker Separator
 
-###Adding the Plugin to your Presentation
-<p>To add this plugin to your BrightAuthor presentation, navigate to <strong>File > Presentation Properties > Autorun</strong> and click <strong>Add Script Plugin</strong>. Locate and select the <em>ChangeSeparator.brs</em> plugin file. Specify the plugin <strong>Name</strong> as "customT".</p>
+> [日本語版はこちら](README_ja.md)
 
-###Changing the Separator Symbol
-<p>The plugin sets the separator symbol to a circle by default. To change this behavior, open the <em>ChangeSeparator.brs</em> plugin file with a plain-text editing program (Notepad, TextEdit, etc.). Locate line 29, which states <code>s.symbol = ":circle:"</code>, and change this line to any of the following:</p>
-<ul>
-<li><code>s.symbol = ":square:"</code></li>
-<li><code>s.symbol = ":diamond:"</code></li>
-<li><code>s.symbol = ":circle:"</code></li>
-</ul>
-<p>Make sure to save the plugin file after you've edited it.</p>
+## Overview
+
+Changes the separator symbol between items in a scrolling Ticker zone. By default, BrightAuthor uses a diamond separator; this plugin can set it to a circle, square, or other supported symbol.
+
+## Plugin Name
+
+```
+customT
+```
+
+## Installation
+
+1. Download `ChangeSeparator.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `ChangeSeparator.brs`.
+4. Set the plugin **Name** to `customT`.
+
+## Usage
+
+The plugin applies the separator symbol to all Ticker (`roTextWidget`) zones when the presentation starts and on each event.
+
+## Configuration
+
+Edit the `s.symbol` value in `ChangeSeparator.brs`:
+
+| Value | Symbol |
+|-------|--------|
+| `:diamond:` | Diamond (default in BrightAuthor) |
+| `:circle:` | Circle |
+| `:square:` | Square |
+
+Example:
+
+```brightscript
+s.symbol = ":circle:"
+```
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `ChangeSeparator.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

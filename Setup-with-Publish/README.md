@@ -1,28 +1,56 @@
-<p>This plugin allows you to perform  device setup by publishing a presentation to that device. Normally, you can only perform device setup by physically inserting a storage device into a player; for Local File Networking and Simple File Networking players, this means that you have to be next to the device to change device settings (some, but not all, BSN player settings can be changed via the <strong>Manage > Status</strong> tab in BrightAuthor). With this plugin, you can remotely publish the device setup files, and thus edit device settings remotely.</p>
+# Setup with Publish
 
-###Creating the Device Setup Package
-First, you’ll need to create a new set of device configuration files:
-<ol>
-<li>Go to <strong>Tools > Setup BrightSign Unit</strong>.</li> 
-<li>Configure the new device settings as desired.</li> 
-<li>Click <strong>Create Setup Files</strong>.</li> 
-<li>Save the setup files to a folder on your PC.</li> 
-<li>Place the setup files into a <em>.zip</em> folder. Name the <em>.zip</em> folder “autorun.zip”.</li>
-</ol>
-<p><strong>Important</strong>: Make sure the setup files and folders (<em>autoplugins.brs</em>, <em>birghtsign-dumps</em>, etc.) are located in the root directory of the <em>autorun.zip</em> folder, not a subdirectory of the zip folder. That is, if you open the .zip folder from Windows explorer, you shouldn’t have to click through any other folders to see the setup files and folders.</p>
-<p><strong>Note</strong>: Because some folders are empty, they may disappear when you place them in the .zip folder. The plugin will recreate the necessary folders when performing device setup on the player.</p> 
+> [日本語版はこちら](README_ja.md)
 
-###Adding the Device Setup Package and Plugin to a Presentation
-Now, you’ll need to add the .zip file and plugin to a presentation for publishing:
-<ol>
-<li>Open a presentation to publish to the player(s). This can be a new presentation, or the same presentation that is currently running on the player(s).</li>
-<li>Navigate to <strong>File > Presentation Properties > Autorun</strong>.</li>
-<li>Click <strong>Add Script Plugin</strong>.</li>
-<li>Locate and select the <em>setup_plugin.brs</em> file.</li>
-<li>Specify the plugin <strong>Name</strong> as “setup”.</li>
-<li>In the <strong>Presentation Properties</strong> window, navigate from the <strong>Autorun</strong> tab to the <strong>Files</strong> tab.</li>
-<li>Click <strong>Add File</strong>.</li>
-<li>Locate and select the <em>autorun.zip</em> file.</li>
-<li>Publish the presentation as you would normally.</li>
-</ol>
-<p>This plugin works with all publishing methods. When the player receives the presentation, it will perform device setup using the generated setup files, reboot, and begin playing the presentation that was published to it.</p>
+## Overview
+
+Performs device setup by publishing a presentation to the player. Normally, device setup requires physically inserting a storage device; for Local File Networking (LFN) and Simple File Networking (SFN) players, this plugin enables remote configuration by publishing setup files.
+
+## Plugin Name
+
+```
+setup
+```
+
+## Creating the Device Setup Package
+
+1. Go to **Tools > Setup BrightSign Unit**.
+2. Configure device settings as desired.
+3. Click **Create Setup Files**.
+4. Save setup files to a folder on your PC.
+5. Zip the setup files into a file named `autorun.zip`.
+
+**Important:** Setup files (`autoplugins.brs`, `brightsign-dumps`, etc.) must be at the **root** of the zip, not in a subdirectory.
+
+**Note:** Empty folders may disappear when zipping; the plugin recreates necessary folders on the player.
+
+## Installation
+
+1. Download `setup_plugin.brs` from this folder.
+2. Open a presentation to publish to the target player(s).
+3. Go to **File > Presentation Properties > Autorun**.
+4. Click **Add Script Plugin** and select `setup_plugin.brs`.
+5. Set the plugin **Name** to `setup`.
+6. Go to **File > Presentation Properties > Files** and add `autorun.zip`.
+7. Publish the presentation normally.
+
+## Usage
+
+When the player receives the presentation, it performs device setup using the files in `autorun.zip`, reboots, and begins playing the published presentation.
+
+Works with all publishing methods.
+
+## Notes
+
+- Prior pool folder is preserved if `pool` is not included inside `autorun.zip`.
+- The `uservariables.db` file is deleted before reboot.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `setup_plugin.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

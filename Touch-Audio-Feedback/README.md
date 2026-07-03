@@ -1,26 +1,52 @@
-Overview
----------
+# Touch Audio Feedback
 
-<p>This plugin plays an audio file over HDMI whenever a touch event is triggered in the presentation.</p>
+> [日本語版はこちら](README_ja.md)
 
-Specifying an Audio File
----------------------------
-<p>By default, the plugin will play an audio file named "ping.mp3" when triggered. If you wish to use an audio file with a different name, change the "ping.mp3" filename strings on lines 27 and 51 of the plugin. 
-<p>Once the plugin has been added, add the desired audio file to the presentation using the using the <strong>Add Files</strong> option in the <strong>File > Presentation Properties > File</strong> window.</p>
+## Overview
 
-Changing the Audio Output
--------------------------
-<p>By default, the audio file is only output over HDMI, but the output configuration can be customized by editing the plugin.</p>
-<p>To add additional audio outputs, add one or more of the following entries after line 111:</p>
-<ul>
-<li><code>AnalogAudioOutput = CreateObject("roAudioOutput", "Analog")</code>
-<li><code>SPDIFAudioOutput = CreateObject("roAudioOutput", "SPDIF")</code>
-<li><code>USBAudioOutput = CreateObject("roAudioOutput", "USB")</code>
-</ul>
-<p>For each of the added outputs, you will also need to add the following after line 112:</p>
-<ul>
-<li><code>compressed.push(AnalogAudioOutput)</code></li>
-<li><code>compressed.push(SPDIFAudioOutput)</code></li>
-<li><code>compressed.push(USBAudioOutput)</code></li>
-</ul>
-<p>To remove HDMI audio output, change the text of line 111 from <code>CreateObject("roAudioOutput","HDMI")</code> to <code>CreateObject("roAudioOutput","NONE")</code>.</p>
+Plays an audio file through HDMI when a touch event is detected on the player. Provides audible feedback for interactive touch presentations.
+
+## Plugin Name
+
+```
+touch
+```
+
+## Installation
+
+1. Download `touch_audio_feedback.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `touch_audio_feedback.brs`.
+4. Set the plugin **Name** to `touch`.
+5. Add `ping.mp3` (or your preferred audio file) to the presentation asset pool.
+
+## Usage
+
+On any `roTouchEvent`, the plugin plays `ping.mp3` from the presentation pool via HDMI audio output.
+
+Plugin Messages are also supported:
+
+| Command | Description |
+|---------|-------------|
+| `touch!debug` | Enable debug logging |
+| `touch!reboot` | Reboot the player |
+
+## Configuration
+
+Edit `touch_audio_feedback.brs` to change the default audio file:
+
+```brightscript
+s.file$ = "ping.mp3"
+```
+
+Audio is routed to HDMI via `roAudioOutput("HDMI")`.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `touch_audio_feedback.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

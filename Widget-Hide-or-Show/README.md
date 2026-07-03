@@ -1,23 +1,64 @@
-Overview
---------
-<p>This plugin allows you to show or hide a Ticker or Clock zone using a Plugin Message or UDP command. When adding this plugin to your BrightAuthor presentation in <strong>File > Presentation Properties > Autorun</strong>, make sure to specify the plugin <strong>Name</strong> as "custom".</p>
+# Widget Hide or Show
 
-Sending Commands to the Plugin
------------------------------
-<p>If your presentation has a single Ticker zone and/or Clock zone, you can send the following Plugin Message or UDP commands to the plugin. Note that attempting to use these commands with multiple Ticker zones or Clock zones will cause unpredictable results.</p>
-<ul>
-<li><code>clock!hide</code>: Causes the Clock zone to disappear from the screen.</li>
-<li><code>clock!show</code>: Causes the Clock zone to reappear on the screen.</li>
-<li><code>ticker!hide</code>: Causes the Ticker zone to disappear from the screen.</li>
-<li><code>ticker!show</code>: Causes the Ticker zone to reappear on the screen.</li>
-</ul>
+> [日本語版はこちら](README_ja.md)
 
-<p>If your presentation contains multiple Ticker zones and/or Clock zones, you can send the following Plugin Message or UDP commands to the plugin:</p>
-<ul>
-<li><code>clock!hide![zone_name]</code>: Causes the Clock zone with the specified <code>zone_name</code> to disappear from the screen.</li>
-<li><code>clock!show![zone_name]</code>: Causes the Clock zone with the specified <code>zone_name</code> to reappear on the screen.</li>
-<li><code>ticker!hide![zone_name]</code>: Causes the Ticker zone with the specified <code>zone_name</code> to disappear from the screen.</li>
-<li><code>ticker!show![zone_name]</code>: Causes the Ticker zone with the specified <code>zone_name</code> to reappear on the screen.</li>
-</ul>
+## Overview
 
-<p><strong>Note</strong>:<em> You can change the <strong>Name</strong> of each zone by navigating to the <strong>Edit > Layout</strong> tab. </em>
+Dynamically shows or hides Ticker and Clock widget zones at runtime via Plugin Message or UDP commands.
+
+## Plugin Name
+
+```
+custom
+```
+
+## Installation
+
+1. Download ` Widget hide or show.brs` from this folder (note the leading space in the filename).
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select the plugin file.
+4. Set the plugin **Name** to `custom`.
+
+## Usage
+
+Commands can be sent via **Send Plugin Message** or UDP on port **555**.
+
+### Clock Widget
+
+| Command | Description |
+|---------|-------------|
+| `clock!hide` | Hide the first Clock widget found |
+| `clock!show` | Show the first Clock widget found |
+| `clock!hide!<zone_name>` | Hide a specific Clock zone |
+| `clock!show!<zone_name>` | Show a specific Clock zone |
+
+### Ticker Widget
+
+| Command | Description |
+|---------|-------------|
+| `ticker!hide` | Hide the first Ticker (Text) widget found |
+| `ticker!show` | Show the first Ticker widget found |
+| `ticker!hide!<zone_name>` | Hide a specific Ticker zone |
+| `ticker!show!<zone_name>` | Show a specific Ticker zone |
+
+### Examples
+
+```
+clock!hide
+ticker!show!MyTicker
+```
+
+## Notes
+
+- Zone names are matched case-insensitively.
+- When multiple zones exist, use the three-field format with the zone name.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| ` Widget hide or show.brs` | Main plugin script (filename has a leading space) |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

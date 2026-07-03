@@ -1,42 +1,72 @@
-<h2>README</h2>
+# Subtitles Widget
 
-<p>This plugin allows you to display subtitles for a video file using an attached <em>.txt</em> file. It also supports subtitles for multiple video files per presentation.</p>
+> [日本語版はこちら](README_ja.md)
 
-<p><strong>Note</strong>: The subtitle text file must be UTF-8 encoded.</p>
+## Overview
 
-<h4>Creating the Subtitles</h4>
-<p>Create a new text file using Notepad or another program. Use the same filename (excepting the extension) as the associated video file: For example, if you had two video files named "Information_Clip.mov" and "Transition.mp4", you would name the associated subtitle files "Information_Clip.txt" and "Transition.txt", respectively.</p>
+Displays subtitles for video files using an attached `.txt` file with timecodes. Supports multiple subtitled videos per presentation. Subtitle text files must be **UTF-8** encoded.
 
-<p>Above each line of subltitle text, specify the video time code at which the text should appear, as in the following example:</p>
-<p>00:00:00:00</p>
-<p>This is the first line of text.</p>
-<p>00:00:04:23</p>
-<p>This is the second line of text.</p>
-<p>00:00:08:23</p>
-<p>This is the third line of text.</p>
-<p>00:00:11:18</p>
-<p>This is the fourth line of text.</p>
-<p>00:00:14:18</p>
-<p>This is the fifth line of text.</p>
-<p>Note that each time code and line of text must be separated by a carriage return ("/r/n") in the text document. The time codes are specified using the following format: <code>hours:minutes:seconds:frames</code></p>
+## Plugin Name
 
-<p>To insert points where no subtitles are displayed, specify a time code followed by a blank line.</p>
+```
+custom
+```
 
-<h4>Adding the Plugin and Subtitles</h4>
-<p>Follow these steps to add the plugin and subtitle files to your BrightAuthor presentation</p>
-<ol>
-<li>Navigate to <strong>File > Presentation Properties > Autorun</strong>.</li>
-<li>Click <strong>Add Script Plugins</strong> and locate the "subtitles_widget.brs" file. Ensure that the plugin <strong>Name</strong> is specified as "custom".</li>
-<li>Navigate to <strong>File > Presentation Properties > Files</strong>. Use the <strong>Add File</strong> button to add a <em>.txt</em> subtitle file for each video file you wish to subtitle.</li>
-</ol>
-<p>The subtitles will now display whenever a subtitled video plays. There is no need to create the text widget or trigger the plugin with commands.</p>
+## Installation
 
-<h4>Resizing the Subtitle Widget</h4>
-<p>By default, the text widget that displays the subtitles is sized using an "action safe" area, ensuring that the text remains within a viewable area on the screen. You may wish to resize this zone so that it better fits the size and layout of your presentation.</p>
+1. Download `subtitles_widget.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `subtitles_widget.brs`.
+4. Set the plugin **Name** to `custom`.
+5. Go to **File > Presentation Properties > Files** and add a `.txt` subtitle file for each video.
 
-<p>To resize the text widget, locate line 45 in the plugin, which specifies the size of the widget by creating an <em>roRectangle</em> object. You can manually input the size and location of the widget by editing the object creation parameters: <code>CreateObject("roRectangle", x, y, width, height)</code></p>
+## Creating Subtitle Files
 
-<p><strong>Example</strong>: The following edit creates a subtitle widget that occupies a strip at the bottom of a 1920x1080 display.</p>
-<code>s.rect=CreateObject("roRectangle", 0, 900, 1920, 180)</code>
+Use the same base filename as the video (different extension). Example: `Information_Clip.mov` → `Information_Clip.txt`.
 
+Format: timecode on one line, subtitle text on the next line. Separate with carriage return (`\r\n`).
 
+```
+00:00:00:00
+This is the first line of text.
+00:00:04:23
+This is the second line of text.
+00:00:08:23
+This is the third line of text.
+```
+
+Timecode format: `hours:minutes:seconds:frames`
+
+To show no subtitle at a point, use a timecode followed by a blank line.
+
+## Usage
+
+Subtitles display automatically when a matching video plays. No commands or text widget setup required.
+
+## Configuration
+
+### Resizing the Subtitle Widget
+
+Edit line 45 in `subtitles_widget.brs`:
+
+```brightscript
+s.rect=CreateObject("roRectangle", x, y, width, height)
+```
+
+Example for bottom strip on 1920x1080:
+
+```brightscript
+s.rect=CreateObject("roRectangle", 0, 900, 1920, 180)
+```
+
+By default, an "action safe" area is used.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `subtitles_widget.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

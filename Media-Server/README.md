@@ -1,65 +1,102 @@
-Overview
---------
-<p>This plugin converts an XT, XD, 4K player to a Media Server that can multicast streams or respond to client streaming requests. When the files being streamed are cached (i.e. they aren't being read from the SD card), XDx30, XDx32 players support up to four 19Mbps streams. XT, 4K, and XDx33 players support up to 50 19Mbps streams of the same file or 11 streams (16Mbps average) of different files.</p>
-<p>When file streaming, the Media Server currently only supports the MPEG-2 transport stream format.</p>
+# Media Server
 
-### Requirements
-<ul>
-<li>BrightAuthor version 4.3 or newer</li>
-<li>XTx43, XDx33, 4Kx42, XDx32 for streaming the presentation display or HDMI input</li>
-</ul>
+> [日本語版はこちら](README_ja.md)
 
-Adding the Plugin to your Presentation
--------------
-<p>Follow these steps to add this plugin to your BrightAuthor presentation:</p>
-<ol>
-<li><a href="https://brightsign.zendesk.com/knowledge/articles/115000045454/en-us?brand_id=72814">Download the plugin file</a> from GitHub.</li>
-<li>Navigate to <strong>File > Presentation Properties > Autorun</strong>.</li>
-<li>Click <strong>Add Script Plugin</strong>.</li>
-<li>Locate and select the Streaming Server plugin.</li>
-<li>Specify the plugin <strong>Name</strong> as "server".</li>
-</ol>
+## Overview
 
-Server Parameters
--------------
-<p>When the presentation starts, the plugin will begin streaming the HDMI input (if available). You can alter the default behavior by changing the following parameters in the plugin script:</p>
-<ul>
-<li><code>s.streamdisplayenabled = false</code>: Set to <code>true</code> to stream the presentation display.</li>
-<li><code>s.hdmioutenabled = true</code>: Set to <code>false</code> to disable the default behavior.</li>
-<li><code>s.hdmimultienabled = false</code>: Set to <code>true</code> to stream HDMI input via multicast.</li>
-</ul>
-<p><strong>Note</strong>: <em>If all of the above values are false, then clients will stream video files from the server.</em></p>
+Converts an XT, XD, or 4K player into a Media Server that can multicast streams or respond to client RTSP streaming requests. Supports streaming HDMI input, the presentation display, or video files.
+
+When files are cached (not read from SD card), XDx30/XDx32 support up to four 19Mbps streams. XT, 4K, and XDx33 support up to 50 19Mbps streams of the same file or 11 streams (16Mbps average) of different files.
+
+**Note:** Only MPEG-2 transport stream format is supported for file streaming.
+
+## Requirements
+
+- BrightAuthor 4.3 or newer
+- XTx43, XDx33, 4Kx42, XDx32 for streaming presentation display or HDMI input
+
+## Plugin Name
+
+```
+server
+```
+
+## Installation
+
+1. Download `server_plugin.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `server_plugin.brs`.
+4. Set the plugin **Name** to `server`.
+
+## Server Parameters
+
+Edit these values in `server_plugin.brs`:
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `s.streamdisplayenabled` | false | Set `true` to stream the presentation display |
+| `s.hdmioutenabled` | true | Set `false` to disable default HDMI streaming |
+| `s.hdmimultienabled` | false | Set `true` to multicast HDMI input |
+
+**Note:** If all three are false, clients stream video files from the server.
 
 ### Encoder Settings
-<p>To edit the standard HDMI input streaming, change this value:</p>
-<p><code>pipleline$="hdmi:,encoder:vformat=720p60&vbitrate=8000,"</code></p>
 
-<p>To edit multicast HDMI input streaming, change this value:</p>
-<p><code>pipelineaddress$ = "hdmi:,encoder:vformat=720p30&vbitrate=8000,"+m.multicast$</code></p>
+HDMI input streaming:
 
-<p>To edit presentation display streaming, change this value:</p>
-<p><code>display:mode=1&vformat=720p30&vbitrate=8000,encoder:,mem:/display</code></p>
+```
+pipleline$="hdmi:,encoder:vformat=720p60&vbitrate=8000,"
+```
 
-<p>The following parameters can be changed:</p>
-<ul>
-<li><code>vformat</code>: Can be "720p30" or "1080p60".</li>
-<li><code>vbitrate</code>: Can range from 8000 to 15000 (8mbps to 15mbps).</li>
-</ul>
+Multicast HDMI:
 
-### Multicast address
-<p>To set the multicast streaming address, edit the string value of the <code>s.multicast$</code> variable on line 53:</p>
-<p><code>s.multicast$ = "rtp://239.192.0.0:5004/"</code></p>
+```
+pipelineaddress$ = "hdmi:,encoder:vformat=720p30&vbitrate=8000,"+m.multicast$
+```
 
-Streaming URLs
-------------------
-<p>Use the following URLs outline to access streams on a client:</p>
+Presentation display:
 
-### Accessing a file stream on a client
-<p><code>rtsp://ServerIpAddress:8090/file:///folder/file.ts</code></p>
-<p><code>rtsp://ServerIpAddress:8090/file:///file.ts</code></p>
+```
+display:mode=1&vformat=720p30&vbitrate=8000,encoder:,mem:/display
+```
 
-### Accessing an HDMI-input stream on a client
-<code>rtsp://serverIPAddress:8090/mem:/hdmi/stream.ts</code>
+Adjustable parameters: `vformat` (720p30, 1080p60), `vbitrate` (8000–15000).
 
-### Accessing a display stream on a client
-<code>rtsp://serverIPAddress:8090/mem:/display/stream.ts</code>
+### Multicast Address
+
+Edit `s.multicast$` (line 53):
+
+```
+s.multicast$ = "rtp://239.192.0.0:5004/"
+```
+
+## Streaming URLs
+
+### File stream
+
+```
+rtsp://ServerIpAddress:8090/file:///folder/file.ts
+rtsp://ServerIpAddress:8090/file:///file.ts
+```
+
+### HDMI input
+
+```
+rtsp://serverIPAddress:8090/mem:/hdmi/stream.ts
+```
+
+### Display stream
+
+```
+rtsp://serverIPAddress:8090/mem:/display/stream.ts
+```
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `server_plugin.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

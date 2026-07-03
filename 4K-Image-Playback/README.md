@@ -1,47 +1,79 @@
-Overview
-----------
-<p>This plugin allows you to display 4K images using a 4K242, 4K1042, or 4K1142 player. The images are played alphabetically from a folder manually placed on the SD--as a result, this plugin can currently only be used with the Standalone publishing method.</p>
+# 4K Image Playback
 
-Download [this presentation](http://brightsignnetwork.com/download/Romeo/Play4KImagesFrom4KimagesFolder.zip) to see an example of how the plugin works.
+> [日本語版はこちら](README_ja.md)
 
-<p><strong>Note</strong>:<em>This plugin uses the 4K video decoder to display 4K images; this means that you cannot display a 4K image and a 4K video at the same time. You can, however, display a 4K image and an HD video simultaneously if desired.</em></p>
+## Overview
 
-Adding the Plugin to your Presentation
--------------
-<p>To add this plugin to your BrightAuthor presentation, navigate to <strong>File > Presentation Properties > Autorun</strong> and click <strong>Add Script Plugin</strong>. Locate and select the 4K Image Playback plugin. Specify the plugin <strong>Name</strong> as "PlayImagesFromFolder".</p>
+Displays 4K still images in a slideshow from a folder on the SD card. Images are played alphabetically. Designed for 4K242, 4K1042, and 4K1142 players using Standalone publishing.
 
-Creating a 4K Image Playlist
-----------------------------
-<p>To utilize this plugin, your presentation must have a Video Only zone or Video or Images zone that occupies the entire screen--this zone will still display 1920x1080 as its width and height dimensions in the <strong>Edit > Layout</strong> tab. You will also need to use an interactive playlist with this zone.</p>
-<ol>
-	<li>Create an Event Handler state for the 4K images you wish to display. This Event Handler state can be positioned anywhere in the playlist, but it <em>cannot</em> be the Home State of the playlist. If you want to play 4K images as an initial step, you can add a very short Timeout event (.1 seconds) between the Home State and the Event Handler state.</li>
-	<li>Add an event of any type (Timeout, Media End, UDP, etc.) that will transition to the Event Handler state.</li>
-	<li>Open the event and click the <strong>Advanced</strong> tab.</li>
-	<li>Click <strong>Add Command</strong> and select the <strong>Send - Send Plugin Message</strong> command.</li>
-	<li>Select the "PlayImagesFromFolder" plugin and enter the message text as "FolderPlay". This message will trigger your playlist of 4K images to begin playing while the Event Handler state is running.</li>
-	<li>Add a Plugin Message event to transition away from the Event Handler state.</li>
-	<li>In the <strong>Plugin message</strong> field, enter "BAPlay". Once your playlist of 4K images finishes playing, the presentation will receive the "BAPlay" message from the playlist and transition away from the event handler state.</li>
-</ol>
+Download [this sample presentation](http://brightsignnetwork.com/download/Romeo/Play4KImagesFrom4KimagesFolder.zip) for a working example.
 
-<p>If you want the 4K image playlist to play in a continuous loop, add the <strong>Send - Send Plugin Message</strong> command from Steps 4-5 to the Plugin Message event attached to the Event Handler state and set the Plugin Message event to <strong>Remain on current state</strong>.</p>
+## Requirements
 
-Configuring 4K Image Timeout
-----------------------------
-<p>You will need to create a User Variable to specify the timeout interval for the 4K images.</p>
-<ol>
-	<li>Navigate to <strong>File > Presentation Properties > Variables</strong>.</li>
-	<li>Click <strong>Add Variable</strong> and specify the variable <strong>Name</strong> as "ImageTimeOUTinSeconds".</li>
-	<li>Enter a <strong>Default Value</strong>: This value corresponds to how many seconds each 4K image will be displayed on screen.</li>
-</ol>
+- 4K242, 4K1042, or 4K1142 player
+- Standalone publishing method (images are added to SD card after publishing)
+- Video Only or Video or Images zone occupying the full screen
+- Interactive playlist
 
-Adding the 4K Images to the Presentation
-----------------------------------------
-<p>You will add your 4K images after creating and publishing the presentation.</p>
-<ol>
-	<li>Once you've finished editing the presentation, publish it to an SD card using the Standalone publishing method.</li>
-	<li>Use your operating system to navigate to the root directory of the SD card ("SD:/").</li>
-	<li>Add a new folder to the root directory and name it "4KImages".</li>
-	<li>Add your 4K images to the "4KImages" folder. These images will be displayed alphabetically whenever the presentation transitions to the Event Handler state and sends the "FolderPlay" command.</li>
-</ol>
-	
+## Plugin Name
 
+```
+PlayImagesFromFolder
+```
+
+## Installation
+
+1. Download `4K-Image-Plugin.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `4K-Image-Plugin.brs`.
+4. Set the plugin **Name** to `PlayImagesFromFolder`.
+
+## Usage
+
+### Plugin Messages
+
+| Message | Description |
+|---------|-------------|
+| `FolderPlay` | Start playing 4K images from the `4KImages` folder |
+| `BAPlay` | Sent by the plugin when the image playlist finishes; use as a Plugin Message event trigger |
+
+### Creating a 4K Image Playlist
+
+1. Create an Event Handler state for 4K images (cannot be the Home State). Use a short Timeout (.1s) between Home State and Event Handler if needed.
+2. Add an event transitioning to the Event Handler state.
+3. In the event **Advanced** tab, add **Send - Send Plugin Message** to `PlayImagesFromFolder` with message `FolderPlay`.
+4. Add a Plugin Message event to leave the Event Handler state.
+5. Set the Plugin Message field to `BAPlay` to transition when playback completes.
+
+For continuous loop, add the `FolderPlay` command to the `BAPlay` Plugin Message event and set it to **Remain on current state**.
+
+## User Variables
+
+| Variable | Description |
+|----------|-------------|
+| `ImageTimeOUTinSeconds` | Seconds each 4K image is displayed |
+
+Create in **File > Presentation Properties > Variables**.
+
+## Configuration
+
+After publishing with Standalone method:
+
+1. Navigate to the SD card root (`SD:/`).
+2. Create a folder named `4KImages`.
+3. Add 4K images to the folder (played alphabetically).
+
+## Notes
+
+- Uses the 4K video decoder; cannot display 4K image and 4K video simultaneously. 4K image + HD video is supported.
+- The zone displays as 1920x1080 in **Edit > Layout** even though 4K images are shown.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `4K-Image-Plugin.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

@@ -1,19 +1,51 @@
-This plugin allows you to print PDF documents to a networked printer using Plugin Message commands. It works by opening up a TCP socket on port 9100 and sending the PDF data to the specified IP address of the networked printer.
+# PDF Printer
 
-See the <em>printPDF.bpf</em> file in this repository for an example of how to use this plugin in a BrightAuthor presentation. 
+> [日本語版はこちら](README_ja.md)
 
-###Adding the Plugin to your Presentation
-<p>To add this plugin to your BrightAuthor presentation, navigate to <strong>File > Presentation Properties > Autorun</strong> and click <strong>Add Script Plugin</strong>. Locate and select the PDF Printer plugin. Specify the plugin <strong>Name</strong> as "PrintPDF".</p>
+## Overview
 
-###Adding PDF Files to your Presentation
-<p>Navigate to <strong>File > Presentation Properties > Autorun</strong>. Use the <strong>Add File</strong> button to locate and select the PDFs that you wish to print.</p>
+Prints PDF documents to a networked printer by opening a TCP socket on port 9100 and sending PDF data to the printer's IP address.
 
-###Configuring the Printer IP Address for the Presentation
-<p>The IP address of the network printer is configured with a "printerIP" User Variable. To add this variable, navigate to <strong>File > Presentation Properties > Variables</strong> and click <strong>Add Variable</strong>. Specify the variable <strong>Name</strong> as "printerIP" and enter the IP address of the printer as the <strong>Default Value</strong>.</p>
+See `PrintPDF.bpf` in this repository for a sample presentation.
 
-###Executing Print Commands
-<p>To trigger a print, attach a Send Plugin Message command to an event or state. The message body of the command must be "printFiles".</p> 
+## Plugin Name
 
-<p>When the plugin receives this command, it will send all PDFs attached to the presentation to the "printerIP" address on TCP port 9100.</p>
+```
+printPDF
+```
 
-<p>When the plugin finishes transmitting the PDFs to the specified IP address, it will return a "printPDFsFinishedEvent" message. This allows you to trigger a transition with a Plugin Message event when the print is complete.</p>
+## Installation
+
+1. Download `printPDFplugin.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `printPDFplugin.brs`.
+4. Set the plugin **Name** to `printPDF`.
+5. In **File > Presentation Properties > Files**, add the PDF files to print.
+6. Create a User Variable `printerIP` with the printer's IP address as the default value.
+
+## Usage
+
+Attach a **Send Plugin Message** command to an event or state:
+
+| Message | Description |
+|---------|-------------|
+| `printFiles` | Send all attached PDFs to `printerIP` on TCP port 9100 |
+
+When printing completes, the plugin sends `printPDFsFinishedEvent`. Use this as a Plugin Message event trigger for transitions.
+
+## User Variables
+
+| Variable | Description |
+|----------|-------------|
+| `printerIP` | IP address of the network printer |
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `printPDFplugin.brs` | Main plugin script |
+| `PrintPDF.bpf` | Sample presentation |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

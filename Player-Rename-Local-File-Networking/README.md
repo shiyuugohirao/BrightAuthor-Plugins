@@ -1,17 +1,54 @@
-Overview
----------
-<p>This plugin allows you to change the name of a player using a User Variable. Alternatively, you can rename the player using a Plugin Message command or UDP command over the local network.</p>
+# Player Rename (Local File Networking)
 
-<p>Ensure that the plugin <strong>Name</strong> is specified as "lfnrename" in <strong>File > Presentation Properties > Autorun</strong>.</p>
+> [日本語版はこちら](README_ja.md)
 
-Renaming a Player with a User Variable
-------------------
-<p>To rename a player with a User Variable, add a new variable with the <strong>Name</strong> "lname" and a <strong>Default Value</strong> corresponding to the new player name. Once the presentation is published, the player will reboot and rename itself. Whenever the player reboots, it will determine if the new name is already in use (and perform the reboot/rename operation if it is not).</p>
+## Overview
 
-Renaming a Player with a UDP or Plugin Message Command
-------------------------------------------------------
-<p>Once the presentation is published, you can rename the player by sending a UDP or Plugin Message command with the following message body: <code>lfnrename![player_name]</code>. For example, to rename the player to "unit27", you can send a UDP message to the player with the body <code>lfnrename!unit27</code>.</p>
+Renames the player in Local File Networking (LFN) environments by writing to the networking registry. The new name can be set via a User Variable at startup or via Plugin Message / UDP at runtime.
 
-<p><strong>Note</strong>: <em>The "lname" variable value will always overwrite the player name that is specified in a UDP or Plugin Message command.</em></p>
+## Plugin Name
 
-<p>By default, the plugin will receive UDP commands on port 555. This can be changed by editing the <code>s.udpReceiverPort</code> value on line 25 of the plugin script.</p>
+```
+lfnrename
+```
+
+## Installation
+
+1. Download `LFNRename` from this folder (no file extension).
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `LFNRename`.
+4. Set the plugin **Name** to `lfnrename`.
+
+## Usage
+
+### User Variable (at startup)
+
+Create a User Variable named `lname` in **File > Presentation Properties > Variables**. On plugin initialization, if `lname` differs from the current registry name, the player renames itself and reboots.
+
+### Plugin Message / UDP (port 555)
+
+```
+lfnrename!<new_name>
+```
+
+| Command | Description |
+|---------|-------------|
+| `lfnrename!<name>` | Set player name to `<name>` and reboot |
+| `lfnrename!debug` | Enable debug logging |
+| `lfnrename!reboot` | Reboot the player |
+
+## Notes
+
+- Writes to the `networking` registry section, key `un`.
+- Player reboots automatically when the name changes.
+- If the new name matches the current name, no change is made.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `LFNRename` | Main plugin script (no extension) |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

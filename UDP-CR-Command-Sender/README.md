@@ -1,9 +1,52 @@
-Overview
--------------
-<p>Use this plugin to send a UDP string that contains a carriage return <cr> at the end. When adding this plugin to your presentation in <strong>File > Presentation Properties > Autorun </strong>, make sure to specify the plugin <strong>Name</strong> as "udpcr".</p>
+# UDP CR Command Sender
 
-<p>To send UDP commands with this plugin, use the Plugin Message command to send the following message to the plugin:</p>
+> [日本語版はこちら](README_ja.md)
 
-<code>Udp![string]</code>
+## Overview
 
-<p>The carriage return will be added to the end of the string when it is sent over UDP.</p>
+Sends a UDP string with a carriage return (CR, ASCII 13) appended to the end. Uses the UDP destination address and port configured in BrightAuthor presentation properties.
+
+## Plugin Name
+
+```
+udpcr
+```
+
+## Installation
+
+1. Download `udpcr.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `udpcr.brs`.
+4. Set the plugin **Name** to `udpcr`.
+5. Configure the UDP destination in **File > Presentation Properties > I/O** (UDP send address and port).
+
+## Usage
+
+Send a Plugin Message or UDP command in the following format:
+
+```
+Udp!<string>
+```
+
+The string is sent over UDP with a CR character (`chr(13)`) appended.
+
+### Examples
+
+```
+Udp!POWER ON
+```
+
+## Notes
+
+- UDP destination is read from `bsp.udpAddress$` and `bsp.udpSendPort` (BrightAuthor I/O settings).
+- Commands starting with `udp` received via UDP are also processed.
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `udpcr.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

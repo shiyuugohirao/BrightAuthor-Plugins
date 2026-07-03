@@ -1,14 +1,46 @@
-README
--------
+# Telnet Enable
 
-<p>This plugin allows you to enable or disable Telnet on a BrightSign player. You can use Telnet to observe logging information over the local network that you could normally only capture via the serial log.</p> 
+> [日本語版はこちら](README_ja.md)
 
-<p>When adding this plugin to your BrightAuthor project in <strong>File > Presentation Properties > Autorun</strong>, ensure that the plugin <strong>Name</strong> is specified as "telnet".</p>
+## Overview
 
-<p>The plugin is triggered using a Plugin Message command or UDP command directed at port 555. The plugin accepts the following messages:</p>
-<ul>
-<li><code>telnet!on</code></li>
-<li><code>telnet!off</code></li>
-<li><code>telnet!reboot</code></li>
-</ul>
-<p>The player must be rebooted before the changes to Telnet settings go into effect.</p>
+Enables or disables Telnet on the player by writing to the networking registry. Telnet is useful for remote debugging and log access.
+
+## Plugin Name
+
+```
+telnet
+```
+
+## Installation
+
+1. Download `telnet_enable.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `telnet_enable.brs`.
+4. Set the plugin **Name** to `telnet`.
+
+## Usage
+
+Commands can be sent via **Send Plugin Message** or UDP on port **555**.
+
+| Command | Description |
+|---------|-------------|
+| `telnet!on` | Enable Telnet on port 23 |
+| `telnet!off` | Disable Telnet |
+| `telnet!reboot` | Reboot the player |
+| `telnet!debug` | Enable debug logging |
+
+## Notes
+
+- Registry changes may require a manual reboot to take effect (automatic reboot is commented out in the script).
+- Telnet writes to the `networking` registry section (`telnet` key set to `23` or blank).
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `telnet_enable.brs` | Main plugin script |
+
+## See Also
+
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)

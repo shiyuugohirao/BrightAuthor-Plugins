@@ -1,35 +1,65 @@
-Overview
----------
-<p>This plugin has two features: First, it takes a screeenshot of the player display output once every ten seconds (each screenshot image file overwrites the previous image file); second, it can display image or video files using a Plugin Message command or UDP command as a trigger.</p>
+# Screenshot and Playback
 
-<p>When adding this plugin to your BrightAuthor project in <strong>File > Presentation Properties > Autorun</strong>, ensure that the plugin <strong>Name</strong> is specified as "play".</p>
+> [日本語版はこちら](README_ja.md)
 
-Customizing the Screenshot Function
------------------------------------
-<ul>
-<li><strong>Resolution</strong>: The default resolution of each screeshot is 1280 by 720. This can be changed by editing the <code>width</code> and <code>height</code> parameters on line 380 of the plugin script.</li>
-<li><strong>Filename/Filepath</strong>: The file is saved in the root folder of the SD card as "screen.jpg". A new fileneame and filepath can be specified by changing the <code>filename</code> parameter on line 380 of the plugin script.</li>
-<li><strong>File Type</strong>: The default image file type is JPEG. It can be changed to "BMP" by editing the  <code>filetype</code> parameter on line 380 of the plugin script..</li>
-</ul>
+## Overview
 
-Triggering Content Playback
----------------------------
-<p>The playback portion of the plugin can accept three commands:</p> 
-<ul>
-<li><code>play!filename</code>: Plays the image or video file specified after the "!".</li>
-<li><code>play!folder!foldername</code>: Plays all image/video files contained within the specified file on the SD card.</li>
-<li><code>play!transition!transition_number</code>: Specifies the transition type between images that are played using this plugin. Use an integer after the second "!" character to specify the desired transition:</li>
-<ul>
-<li>0 - No transition: immediate blit</li>
-<li>1 to 4 - Wipes from top, bottom, left, or right.</li>
-<li>5 to 8 - Explodes from centre, top left, top right, bottom left, or bottom right.</li>
-<li>10 to 11 - Uses vertical and horizontal venetian blinds.</li>
-<li>12 to 13 - Combs vertical and horizontal.</li>
-<li>14 - Fades out to background color, then back in.</li>
-<li>15 - Fades between current image and new image.</li>
-<li>16 to 19 - Slides from top, bottom, left or right.</li>
-<li>20 to 23 – Slides entire screen from top, bottom, left, or right.</li>
-<li>24 to 25 – Scales old image in, then the new one out again (this works as a pseudo rotation around a vertical or horizontal axis, respectively).</li>
-<li>26 to 29 – Expands a new image onto the screen from right, left, bottom, or top.</li>
-</ul>
-</ul>
+Two features: (1) captures a screenshot of the player display every 10 seconds (overwriting the previous file), and (2) plays image or video files on demand via Plugin Message or UDP commands.
+
+## Plugin Name
+
+```
+play
+```
+
+## Installation
+
+1. Download `Screenshot_and_Playback.brs` from this folder.
+2. In BrightAuthor, go to **File > Presentation Properties > Autorun**.
+3. Click **Add Script Plugin** and select `Screenshot_and_Playback.brs`.
+4. Set the plugin **Name** to `play`.
+
+## Screenshot Configuration
+
+Edit parameters around line 380 in `Screenshot_and_Playback.brs`:
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `width` / `height` | 1280 x 720 | Screenshot resolution |
+| `filename` | `screen.jpg` (SD root) | Output file path |
+| `filetype` | JPEG | Image format (or BMP) |
+
+## Playback Commands
+
+| Command | Description |
+|---------|-------------|
+| `play!<filename>` | Play specified image or video file |
+| `play!folder!<foldername>` | Play all files in the folder on SD card |
+| `play!transition!<number>` | Set image transition type (0–29) |
+
+### Transition Types
+
+| Number | Effect |
+|--------|--------|
+| 0 | No transition (immediate) |
+| 1–4 | Wipes (top, bottom, left, right) |
+| 5–8 | Explode from center/corners |
+| 10–11 | Venetian blinds (vertical/horizontal) |
+| 12–13 | Combs (vertical/horizontal) |
+| 14 | Fade out to background, fade in |
+| 15 | Crossfade between images |
+| 16–19 | Slide from edges |
+| 20–23 | Slide entire screen |
+| 24–25 | Scale pseudo-rotation |
+| 26–29 | Expand from edges |
+
+## Related Files
+
+| File | Description |
+|------|-------------|
+| `Screenshot_and_Playback.brs` | Main plugin script |
+
+## See Also
+
+- [Play-File](../Play-File/) for playback without screenshots
+- [BrightSign Plugins and Parsers documentation](http://docs.brightsign.biz/display/DOC/BrightAuthor+Plugins+and+Parsers)
