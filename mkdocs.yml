@@ -8,16 +8,21 @@ edit_uri: edit/main/
 theme:
   name: material
   language: en
+  icon:
+    logo: material/television-play
+  font:
+    text: Montserrat
+    code: JetBrains Mono
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -39,6 +44,7 @@ plugins:
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
+      reconfigure_material: true
       languages:
         - locale: en
           default: true
@@ -115,11 +121,5 @@ nav:
       - PDF Printer: plugins/PDF-Printer/index.md
       - Variable Countdown: plugins/Variable-Countdown/index.md
 
-extra:
-  alternate:
-    - name: English
-      link: /
-      lang: en
-    - name: 日本語
-      link: /ja/
-      lang: ja
+extra_css:
+  - stylesheets/extra.css

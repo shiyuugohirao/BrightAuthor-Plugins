@@ -105,25 +105,36 @@ def copy_readme(src: Path, dest: Path, *, japanese: bool) -> None:
     dest.write_text(rewrite_links(content, japanese=japanese), encoding="utf-8")
 
 
+def sync_assets() -> None:
+    assets = ROOT / "site-assets" / "stylesheets"
+    if not assets.is_dir():
+        return
+    dest = DOCS / "stylesheets"
+    dest.mkdir(parents=True, exist_ok=True)
+    for css in assets.glob("*.css"):
+        shutil.copy2(css, dest / css.name)
+
+
 def main() -> None:
-  if DOCS.exists():
-    shutil.rmtree(DOCS)
-  DOCS.mkdir()
+    if DOCS.exists():
+        shutil.rmtree(DOCS)
+    DOCS.mkdir()
 
-  copy_readme(ROOT / "README.md", DOCS / "index.md", japanese=False)
-  copy_readme(ROOT / "README_ja.md", DOCS / "index.ja.md", japanese=True)
+    copy_readme(ROOT / "README.md", DOCS / "index.md", japanese=False)
+    copy_readme(ROOT / "README_ja.md", DOCS / "index.ja.md", japanese=True)
 
-  for plugin in PLUGIN_DIRS:
-    plugin_root = ROOT / plugin
-    plugin_docs = DOCS / "plugins" / plugin
-    copy_readme(plugin_root / "README.md", plugin_docs / "index.md", japanese=False)
-    copy_readme(
-      plugin_root / "README_ja.md",
-      plugin_docs / "index.ja.md",
-      japanese=True,
-    )
+    for plugin in PLUGIN_DIRS:
+        plugin_root = ROOT / plugin
+        plugin_docs = DOCS / "plugins" / plugin
+        copy_readme(plugin_root / "README.md", plugin_docs / "index.md", japanese=False)
+        copy_readme(
+            plugin_root / "README_ja.md",
+            plugin_docs / "index.ja.md",
+            japanese=True,
+        )
 
-  print(f"Synced documentation into {DOCS.relative_to(ROOT)}/")
+    sync_assets()
+    print(f"Synced documentation into {DOCS.relative_to(ROOT)}/")
 
 
 if __name__ == "__main__":
