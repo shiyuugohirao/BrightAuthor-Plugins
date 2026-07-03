@@ -1,0 +1,125 @@
+site_name: BrightAuthor Plugins
+site_description: Documentation for BrightAuthor plugin samples (learning & reference)
+site_url: https://shiyuugohirao.github.io/BrightAuthor-Plugins/
+repo_url: https://github.com/shiyuugohirao/BrightAuthor-Plugins
+repo_name: shiyuugohirao/BrightAuthor-Plugins
+edit_uri: edit/main/
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+plugins:
+  - search:
+      lang:
+        - en
+        - ja
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: ja
+          name: 日本語
+          build: true
+          nav_translations:
+            Home: ホーム
+            Development: 開発
+            Media Playback: メディア再生
+            Streaming: ストリーミング
+            Network Control: ネットワーク制御
+            UI and Widgets: UI・ウィジェット
+            Video and Display: 映像・表示
+            Cloud and Setup: クラウド・セットアップ
+            Presentation Management: プレゼンテーション管理
+            Utilities: ユーティリティ
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Development:
+      - Blank Plugin Template: plugins/Blank-Plugin-Template/index.md
+  - Media Playback:
+      - 4K Image Playback: plugins/4K-Image-Playback/index.md
+      - Download and Play: plugins/Download-and-Play/index.md
+      - Framerate Matcher: plugins/Framerate-Matcher/index.md
+      - Play File: plugins/Play-File/index.md
+      - Rotate and Seek: plugins/Rotate-and-Seek/index.md
+      - Screenshot and Playback: plugins/Screenshot-and-Playback/index.md
+      - Subtitles Widget: plugins/Subtitles-Widget/index.md
+  - Streaming:
+      - Media Server: plugins/Media-Server/index.md
+      - Media Server RTSP: plugins/Media-Server-RTSP/index.md
+  - Network Control:
+      - TCP Network Command: plugins/TCP-Network-Command/index.md
+      - UDP CR Command Sender: plugins/UDP-CR-Command-Sender/index.md
+      - UDP Hex CR Command Sender: plugins/UDP-Hex-CR-Command-Sender/index.md
+      - Telnet Enable: plugins/Telnet-Enable/index.md
+      - Pronto Hex Transmitter: plugins/Pronto-Hex-Transmitter/index.md
+  - UI and Widgets:
+      - Widget Hide or Show: plugins/Widget-Hide-or-Show/index.md
+      - Change Ticker Separator: plugins/Change-Ticker-Separator/index.md
+      - Touch Audio Feedback: plugins/Touch-Audio-Feedback/index.md
+      - Send User Variables To HTML: plugins/Send-User-Variables-To-HTML/index.md
+      - HTML Zone Message: plugins/HTMLZoneMessage/index.md
+  - Video and Display:
+      - Chroma Luma Key Editor: plugins/ChromaLuma-Key-Editor/index.md
+      - Set Video Mode: plugins/Set-Video-Mode/index.md
+      - Screenshot with URL: plugins/Screenshot-with-URL/index.md
+  - Cloud and Setup:
+      - Add To Cloud: plugins/Add-To-Cloud/index.md
+      - Setup with Publish: plugins/Setup-with-Publish/index.md
+      - Publish Node: plugins/Publish-Node/index.md
+      - Add Client Certificates: plugins/Add-Client-Certificates/index.md
+  - Presentation Management:
+      - Restore Presentation: plugins/Restore-Presentation/index.md
+      - Player Rename Local File Networking: plugins/Player-Rename-Local-File-Networking/index.md
+      - System Log Saver: plugins/System-Log-Saver/index.md
+  - Utilities:
+      - PDF Printer: plugins/PDF-Printer/index.md
+      - Variable Countdown: plugins/Variable-Countdown/index.md
+
+extra:
+  alternate:
+    - name: English
+      link: /
+      lang: en
+    - name: 日本語
+      link: /ja/
+      lang: ja

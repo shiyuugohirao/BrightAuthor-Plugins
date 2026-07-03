@@ -1,3 +1,7 @@
 # cursor
 .specstory/
 .cursorindexingignore
+
+# MkDocs generated output
+docs/
+site/
